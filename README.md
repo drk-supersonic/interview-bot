@@ -7,7 +7,7 @@
 
 - Бэкенд: FastAPI (Python)
 - Фронт: один HTML-файл с JS (без фреймворков)
-- LLM: OpenRouter, модель `google/gemini-2.5-flash`
+- LLM: OpenRouter, модель `openai/gpt-5-mini`
 
 ## Установка
 

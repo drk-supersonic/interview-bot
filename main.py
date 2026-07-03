@@ -27,7 +27,7 @@ from pydantic import BaseModel
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_REFERER = "https://github.com/osmo/interview-bot"  # можно заменить на свой репозиторий
-MODEL = "google/gemini-2.5-flash"
+MODEL = "openai/gpt-5-mini"
 
 QUESTION = "Расскажите, как вы выбирали последний онлайн-курс?"
 
