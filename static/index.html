@@ -3,15 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Интервью-бот</title>
+<title>INTERVIEW-BOT</title>
 <style>
   :root {
-    --bg: #0f1115;
-    --card: #171a21;
-    --border: #2a2e38;
-    --text: #e8e9ec;
-    --muted: #8b8f9a;
-    --accent: #5b8def;
+    --bg: #0e0e10;
+    --panel: #18181b;
+    --panel-2: #101012;
+    --stripe-dark: #0a0a0c;
+    --question-bg: #1f1f24;
+    --question-border: #3a3a42;
+    --line: #303034;
+    --text: #f5f5f2;
+    --subtitle: #b3b3b8;
+    --dim: #8b8b90;
+    --yellow: #f6c744;
+    --green: #6fe089;
+    --green-strong: #349e63;
+    --red: #ff6b5c;
   }
   * { box-sizing: border-box; }
   body {
@@ -22,122 +30,260 @@
     justify-content: center;
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: "Helvetica Neue", Arial, sans-serif;
     padding: 24px;
   }
-  .card {
+  .panel {
     width: 100%;
-    max-width: 560px;
-    background: var(--card);
-    border: 1px solid var(--border);
+    max-width: 620px;
+    background: var(--panel);
+    border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 28px;
+    position: relative;
   }
+
+  .topstrip {
+    display: flex;
+    align-items: center;
+    padding: 10px 26px;
+    border-bottom: 1px solid var(--line);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .tstripe {
+    height: 8px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--line), var(--line) 4px,
+      var(--panel) 4px, var(--panel) 9px
+    );
+    display: block;
+  }
+  .tstripe.short { width: 20px; flex: none; margin-right: 10px; }
+  .tstripe.long { flex: 1; margin-left: 10px; }
+
+  .header-rule {
+    border: none;
+    height: 8px;
+    border-radius: 2px;
+    margin: 0 0 20px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--green), var(--green) 4px,
+      var(--panel) 4px, var(--panel) 9px
+    );
+  }
+
+  .content { padding: 26px 26px 28px; }
+
   h1 {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 6px;
+    font-size: 23px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin: 0 0 4px;
+    line-height: 1.1;
+    white-space: nowrap;
   }
-  .question {
-    color: var(--muted);
-    font-size: 15px;
-    margin-bottom: 18px;
-    line-height: 1.5;
+
+  .subtitle {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--subtitle);
+    margin-bottom: 22px;
   }
+
   .label {
     display: block;
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  input[type="text"]#apiKey {
-    width: 100%;
-    background: #0f1115;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    padding: 10px 14px;
-    font-size: 14px;
-    font-family: inherit;
-    outline: none;
-  }
-  input[type="text"]#apiKey:focus { border-color: var(--accent); }
-  .hint {
     font-size: 12px;
-    color: var(--muted);
-    margin-top: 6px;
-    margin-bottom: 18px;
-    line-height: 1.4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-family: "Helvetica Neue", Arial, sans-serif;
   }
-  .hint a { color: var(--accent); }
+  .tag {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+
+  input[type="text"]#apiKey,
   textarea {
     width: 100%;
-    min-height: 120px;
-    resize: vertical;
-    background: #0f1115;
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 5px;
     color: var(--text);
     padding: 12px 14px;
     font-size: 15px;
-    font-family: inherit;
+    font-weight: 500;
+    font-family: "Helvetica Neue", Arial, sans-serif;
     outline: none;
   }
-  textarea:focus { border-color: var(--accent); }
-  button {
-    margin-top: 14px;
+  input[type="text"]#apiKey:focus,
+  textarea:focus { border-color: var(--green); }
+  input[type="text"]#apiKey::placeholder,
+  textarea::placeholder { color: #55554f; }
+
+  #apiKey { margin-bottom: 24px; }
+
+  .question-block {
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: var(--accent);
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  button:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-  .reply-box {
-    margin-top: 20px;
+    background: var(--panel);
+    border: 1px solid var(--green);
+    border-radius: 5px;
     padding: 14px 16px;
-    background: #12151b;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-size: 15px;
+    margin-bottom: 16px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .question-block .tag {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  textarea {
+    height: 110px;
+    resize: none;
+    overflow-y: auto;
+    margin-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+  textarea::-webkit-scrollbar { width: 5px; }
+  textarea::-webkit-scrollbar-track { background: transparent; }
+  textarea::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+  textarea::-webkit-scrollbar-thumb:hover { background: #46464c; }
+
+  button#submit {
+    margin-top: 16px;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 5px;
+    background: var(--yellow);
+    color: #16161a;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  button#submit:hover:not(:disabled) { background: #ffd35c; }
+  button#submit:disabled { opacity: 0.55; cursor: default; }
+
+  .sync-spinner {
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(22, 22, 26, 0.3);
+    border-top-color: #16161a;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .reply-box {
+    margin-top: 18px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 600;
     line-height: 1.5;
     display: none;
     white-space: pre-wrap;
   }
   .reply-box.visible { display: block; }
+  .reply-box .tag {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
   .error {
-    color: #f07171;
-    margin-top: 12px;
-    font-size: 14px;
+    color: var(--red);
+    margin-top: 14px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 700;
     display: none;
   }
   .error.visible { display: block; }
+
+  .barcode {
+    display: flex;
+    align-items: center;
+    margin: 26px -26px -28px;
+    padding: 10px 26px;
+    border-top: 1px solid var(--line);
+    border-radius: 0 0 13px 13px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Короткое интервью</h1>
-
-    <label class="label" for="apiKey">OpenRouter API Key</label>
-    <input type="text" id="apiKey" placeholder="sk-or-v1-..." autocomplete="off" spellcheck="false">
-    <div class="hint">
-      Ключ нужен для вызова модели. Получить бесплатно на
-      <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a>.
-      Отправляется только в момент запроса, нигде не сохраняется.
+  <div class="panel">
+    <div class="topstrip">
+      <span class="tstripe short"></span>
+      <span>INTERVIEW-BOT</span>
+      <span class="tstripe long"></span>
     </div>
 
-    <div class="question" id="question">Загружаю вопрос...</div>
-    <textarea id="answer" placeholder="Ваш ответ..."></textarea>
-    <button id="submit">Отправить</button>
-    <div class="error" id="error"></div>
-    <div class="reply-box" id="reply"></div>
+    <div class="content">
+      <h1>Короткое интервью</h1>
+      <div class="subtitle">Работает на GPT-5 mini</div>
+      <hr class="header-rule">
+
+      <label class="label" for="apiKey">OpenRouter API Key</label>
+      <input type="text" id="apiKey" placeholder="sk-or-v1-..." autocomplete="off" spellcheck="false">
+
+      <div class="question-block">
+        <span class="tag">Вопрос</span>
+        <span id="question">загрузка...</span>
+      </div>
+
+      <label class="label" for="answer">Ваш ответ</label>
+      <textarea id="answer" placeholder="Введите ответ..."></textarea>
+
+      <button id="submit">Отправить</button>
+      <div class="error" id="error"></div>
+      <div class="reply-box" id="reply"></div>
+
+      <div class="barcode">
+        <span class="tstripe short"></span>
+        <span>GPT-5 MINI</span>
+        <span class="tstripe long"></span>
+      </div>
+    </div>
   </div>
 
 <script>
@@ -158,6 +304,15 @@
     }
   }
 
+  function setLoading(isLoading) {
+    submitEl.disabled = isLoading;
+    if (isLoading) {
+      submitEl.innerHTML = 'Синхронизация <span class="sync-spinner"></span>';
+    } else {
+      submitEl.textContent = "Отправить";
+    }
+  }
+
   async function submitAnswer() {
     const answer = answerEl.value.trim();
     const apiKey = apiKeyEl.value.trim();
@@ -165,7 +320,7 @@
     replyEl.classList.remove("visible");
 
     if (!apiKey) {
-      errorEl.textContent = "Введите OpenRouter API Key";
+      errorEl.textContent = "Нужен OpenRouter API Key";
       errorEl.classList.add("visible");
       return;
     }
@@ -175,8 +330,7 @@
       return;
     }
 
-    submitEl.disabled = true;
-    submitEl.textContent = "Отправляю...";
+    setLoading(true);
 
     try {
       const res = await fetch("/api/respond", {
@@ -197,14 +351,15 @@
       }
 
       const data = await res.json();
-      replyEl.textContent = data.reply;
+      replyEl.innerHTML = '<span class="tag">Ответ модели</span>';
+      const textNode = document.createTextNode(data.reply);
+      replyEl.appendChild(textNode);
       replyEl.classList.add("visible");
     } catch (e) {
       errorEl.textContent = e.message || "Что-то пошло не так";
       errorEl.classList.add("visible");
     } finally {
-      submitEl.disabled = false;
-      submitEl.textContent = "Отправить";
+      setLoading(false);
     }
   }
 
