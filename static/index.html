@@ -276,6 +276,7 @@
   const errorEl = document.getElementById("error");
 
   let finished = false;
+  let round = 0;
 
   async function loadQuestion() {
     try {
@@ -335,7 +336,13 @@
       }
 
       const data = await res.json();
-      const isFollowUp = data.reply.includes("?");
+      round += 1;
+
+      // По заданию допустим ровно ОДИН уточняющий вопрос. Если это уже
+      // второй раунд (был один уточняющий вопрос и ответ на него), интервью
+      // обязано завершиться — даже если модель по какой-то причине снова
+      // сформулировала фразу как вопрос.
+      const isFollowUp = round < 2 && data.reply.includes("?");
 
       questionEl.textContent = data.reply;
       answerEl.value = "";
