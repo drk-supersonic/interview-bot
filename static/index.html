@@ -16,9 +16,6 @@
     --lime: #d7f900;
     --lime-strong: #c2e100;
     --red: #ff6b5c;
-
-
-    
   }
   * { box-sizing: border-box; }
   body {
@@ -278,7 +275,7 @@
   }
 
   function setLoading(isLoading) {
-    submitEl.disabled = isLoading;
+    submitEl.disabled = isLoading || finished;
     if (isLoading) {
       submitEl.innerHTML = 'Синхронизация <span class="sync-spinner"></span>';
     } else {
