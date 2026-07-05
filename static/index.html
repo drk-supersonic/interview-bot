@@ -18,11 +18,6 @@
     --orange: #cbe000;
     --orange-strong: #b5c700;
     --red: #d1382e;
-
-
-
-
-    
   }
   * { box-sizing: border-box; }
   body {
@@ -70,12 +65,13 @@
   .header-rule {
     border: none;
     height: 8px;
-    border-radius: 2px;
+    border-radius: 4px;
     margin: 0 0 20px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='8' viewBox='0 0 20 8'%3E%3Crect x='-3' y='2' width='16' height='4' rx='0' fill='%23cbe000' transform='rotate(-45 5 4)'/%3E%3Crect x='7' y='2' width='16' height='4' rx='0' fill='%23cbe000' transform='rotate(-45 15 4)'/%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-    background-position: left center;
-    background-size: 20px 8px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--orange), var(--orange) 5px,
+      var(--panel) 5px, var(--panel) 10px
+    );
   }
 
   .content { padding: 26px 26px 28px; }
@@ -117,7 +113,7 @@
     width: 100%;
     background: var(--panel-2);
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 4px;
     color: var(--screen-text);
     padding: 12px 14px;
     font-size: 15px;
@@ -137,7 +133,7 @@
     width: 100%;
     background: #1c1e20;
     border: 1px solid var(--orange);
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 14px 16px;
     margin-bottom: 16px;
     font-size: 15px;
@@ -173,7 +169,7 @@
     width: 100%;
     padding: 13px;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     background: var(--orange);
     color: #0e0f10;
     font-size: 13px;
