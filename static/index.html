@@ -13,8 +13,8 @@
     --text: #f1f3f3;
     --subtitle: #a9afb2;
     --dim: #83898c;
-    --teal: #3ddbc0;
-    --teal-strong: #24b89f;
+    --lime: #d7f900;
+    --lime-strong: #c2e100;
     --red: #ff6b5c;
   }
   * { box-sizing: border-box; }
@@ -68,7 +68,7 @@
     margin: 0 0 20px;
     background: repeating-linear-gradient(
       45deg,
-      var(--teal), var(--teal) 4px,
+      var(--lime), var(--lime) 4px,
       var(--panel) 4px, var(--panel) 9px
     );
   }
@@ -121,7 +121,7 @@
     outline: none;
   }
   input[type="text"]#apiKey:focus,
-  textarea:focus { border-color: var(--teal); }
+  textarea:focus { border-color: var(--lime); }
   input[type="text"]#apiKey::placeholder,
   textarea::placeholder { color: #55595c; }
 
@@ -130,7 +130,7 @@
   .question-block {
     width: 100%;
     background: var(--panel);
-    border: 1px solid var(--teal);
+    border: 1px solid var(--lime);
     border-radius: 5px;
     padding: 14px 16px;
     margin-bottom: 16px;
@@ -144,7 +144,7 @@
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--teal);
+    color: var(--lime);
     margin-bottom: 8px;
     font-weight: 700;
   }
@@ -168,7 +168,7 @@
     padding: 13px;
     border: none;
     border-radius: 5px;
-    background: var(--teal);
+    background: var(--lime);
     color: #0f1113;
     font-size: 13px;
     font-weight: 800;
@@ -181,7 +181,7 @@
     justify-content: center;
     gap: 8px;
   }
-  button#submit:hover:not(:disabled) { background: var(--teal-strong); }
+  button#submit:hover:not(:disabled) { background: var(--lime-strong); }
   button#submit:disabled { opacity: 0.55; cursor: default; }
 
   .sync-spinner {
@@ -200,7 +200,7 @@
   .reply-box {
     margin-top: 18px;
     background: var(--panel);
-    border: 1px solid var(--teal);
+    border: 1px solid var(--lime);
     border-radius: 5px;
     padding: 14px 16px;
     font-size: 15px;
@@ -215,7 +215,7 @@
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--teal);
+    color: var(--lime);
     margin-bottom: 8px;
     font-weight: 700;
   }
@@ -359,6 +359,12 @@
   }
 
   submitEl.addEventListener("click", submitAnswer);
+  answerEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      submitAnswer();
+    }
+  });
   loadQuestion();
 </script>
 </body>
